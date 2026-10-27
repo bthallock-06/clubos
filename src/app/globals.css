@@ -1,0 +1,30 @@
+@import "tailwindcss";
+
+/* Design tokens. Change the look of the whole app here. */
+@theme {
+  --color-ink: #0f1b2d;
+  --color-muted: #5b6676;
+  --color-paper: #f5f6f8;
+  --color-line: #e2e5ea;
+  --color-brand: #0b6e8a;
+  --color-brand-dark: #084f64;
+  --color-brand-soft: #e3f1f5;
+  --color-ok: #177245;
+  --color-ok-soft: #e4f3ea;
+  --color-warn: #9a5b00;
+  --color-warn-soft: #fbf0d9;
+  --color-bad: #b3261e;
+  --color-bad-soft: #fbe6e4;
+  --font-sans: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+}
+
+body {
+  background: var(--color-paper);
+  color: var(--color-ink);
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+}
+
+.num {
+  font-variant-numeric: tabular-nums;
+}
