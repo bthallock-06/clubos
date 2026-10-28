@@ -44,6 +44,13 @@ export async function openDb(opts?: { memory?: boolean }): Promise<DbHandle> {
     };
   }
 
+  // The embedded database writes to local disk, which hosted platforms wipe
+  // or forbid. Fail loudly instead of losing data.
+  if (process.env.VERCEL && !opts?.memory) {
+    throw new Error(
+      "DATABASE_URL is not set. Attach a Postgres database to this Vercel project and redeploy.",
+    );
+  }
   const { PGlite } = await import("@electric-sql/pglite");
   const { drizzle } = await import("drizzle-orm/pglite");
   const { migrate } = await import("drizzle-orm/pglite/migrator");
