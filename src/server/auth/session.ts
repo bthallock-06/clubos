@@ -41,13 +41,19 @@ export async function signIn(email: string, password: string): Promise<boolean> 
     .from(memberships)
     .where(eq(memberships.userId, user.id));
   if (!membership) return false;
+  await startSession(user.id, membership.clubId);
+  return true;
+}
 
+/** Issues a session cookie for a user inside one club. */
+export async function startSession(userId: string, clubId: string): Promise<void> {
+  const db = await getDb();
   const token = randomBytes(32).toString("base64url");
   const expiresAt = new Date(Date.now() + SESSION_DAYS * 86_400_000);
   await db.insert(sessions).values({
     tokenHash: hashToken(token),
-    userId: user.id,
-    clubId: membership.clubId,
+    userId,
+    clubId,
     expiresAt,
   });
   (await cookies()).set(COOKIE, token, {
@@ -57,7 +63,6 @@ export async function signIn(email: string, password: string): Promise<boolean> 
     expires: expiresAt,
     path: "/",
   });
-  return true;
 }
 
 export async function signOut(): Promise<void> {

@@ -34,7 +34,8 @@ export async function createChargeAction(_: ActionState, form: FormData): Promis
       revenueAccountCode: input.revenueAccountCode,
     });
     revalidatePath("/billing");
-    return `Billed ${result.athletes} athletes with ${result.invoiceCount} invoices. The books are updated.`;
+    const plural = (n: number, word: string) => `${n} ${word}${n === 1 ? "" : "s"}`;
+    return `Billed ${plural(result.athletes, "athlete")} with ${plural(result.invoiceCount, "invoice")}. The books are updated.`;
   });
 }
 

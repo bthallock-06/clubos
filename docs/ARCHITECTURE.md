@@ -95,6 +95,7 @@ the same code serves many clubs. What to revisit as it grows:
 | Messaging | SafeSport rules on adult to minor contact need design first |
 | Video upload and timestamped comments | Storage cost; links prove the workflow |
 | Bank reconciliation, refunds, partial pay by parents | After discovery confirms finance is a top three pain |
-| Password reset, invitations, club switcher | Needs an email provider; auth is isolated in `auth/session.ts` for the swap |
+| Password reset and invitations | Needs an email provider. Club sign up exists (`domain/onboarding.ts`); coaches and parents cannot join a new club until invites ship |
+| Club switcher | One user, one club for now; sign in picks the first membership |
 | Editing and deleting records | Add per screen as pilots ask |
 | Rate limiting on sign in | Add at the host or middleware before real users |

@@ -144,3 +144,15 @@ export function Meter({ value, total, tone = "brand" }: { value: number; total: 
     </div>
   );
 }
+
+/** Shown in place of a form that needs at least one team to exist. */
+export function NeedsTeam({ action }: { action: string }) {
+  return (
+    <p className="p-5 text-sm text-muted">
+      Create a team first, then you can {action}.{" "}
+      <Link href="/teams" className="font-medium text-brand hover:underline">
+        Go to Teams
+      </Link>
+    </p>
+  );
+}

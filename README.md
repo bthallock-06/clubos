@@ -17,7 +17,8 @@ npm run dev       # then open http://localhost:3000
 ```
 
 The sign in page has one click buttons for each demo role. The password for
-every demo account is `clubos-demo`.
+every demo account is `clubos-demo`. To start a fresh, empty club instead, click
+**Create your club** on the sign in page.
 
 | Sign in as | Email | What you see |
 | --- | --- | --- |

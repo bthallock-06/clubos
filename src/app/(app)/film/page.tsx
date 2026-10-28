@@ -1,5 +1,5 @@
 import { ActionForm, SubmitButton } from "@/components/action-form";
-import { Card, Empty, Field, input, PageHeader } from "@/components/ui";
+import { Card, Empty, Field, input, NeedsTeam, PageHeader } from "@/components/ui";
 import { formatDate, todayIn } from "@/lib/dates";
 import { requireViewer } from "@/server/auth/session";
 import { listTeams, listVideos, visibleTeamIds } from "@/server/domain/club";
@@ -45,6 +45,9 @@ export default async function FilmPage() {
 
         {canEdit && (
           <Card title="Post film" className="self-start">
+            {teams.length === 0 ? (
+              <NeedsTeam action="post film" />
+            ) : (
             <ActionForm action={addVideoAction} className="space-y-3 p-5">
               <Field label="Team">
                 <select name="teamId" required className={input}>
@@ -67,6 +70,7 @@ export default async function FilmPage() {
               <SubmitButton>Post to team</SubmitButton>
               <p className="text-xs text-muted">Links only for now. Direct upload arrives with the video module.</p>
             </ActionForm>
+            )}
           </Card>
         )}
       </div>

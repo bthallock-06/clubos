@@ -115,6 +115,19 @@ export async function addAthlete(
   });
 }
 
+export async function createTeam(
+  ctx: Ctx,
+  input: { name: string; season: string },
+): Promise<string> {
+  assertRole(ctx, "director");
+  const [team] = await ctx.db
+    .insert(teams)
+    .values({ clubId: ctx.clubId, name: input.name, season: input.season })
+    .returning({ id: teams.id });
+  if (!team) throw new DomainError("Team was not created.");
+  return team.id;
+}
+
 // ---------------------------------------------------------------- what a viewer can see
 
 /** Households the signed in user belongs to. */

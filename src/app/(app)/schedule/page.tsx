@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { ActionForm, SubmitButton } from "@/components/action-form";
-import { Badge, Card, Empty, Field, input, PageHeader } from "@/components/ui";
+import { Badge, Card, Empty, Field, input, NeedsTeam, PageHeader } from "@/components/ui";
 import { formatTime } from "@/lib/dates";
 import { requireViewer } from "@/server/auth/session";
 import { listEvents, listTeams, visibleTeamIds } from "@/server/domain/club";
@@ -87,6 +87,9 @@ export default async function SchedulePage({
 
         {canEdit && (
           <Card title="Add event" className="self-start">
+            {teams.length === 0 ? (
+              <NeedsTeam action="schedule events" />
+            ) : (
             <ActionForm action={scheduleEventAction} className="space-y-3 p-5">
               <div className="grid grid-cols-2 gap-3">
                 <Field label="Team">
@@ -124,6 +127,7 @@ export default async function SchedulePage({
               </Field>
               <SubmitButton>Add to schedule</SubmitButton>
             </ActionForm>
+            )}
           </Card>
         )}
       </div>

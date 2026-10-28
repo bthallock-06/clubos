@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { ActionForm, SubmitButton } from "@/components/action-form";
-import { Badge, Card, Empty, Field, input, PageHeader, Table, td, tdNum, th, thNum } from "@/components/ui";
+import { Badge, Card, Empty, Field, input, NeedsTeam, PageHeader, Table, td, tdNum, th, thNum } from "@/components/ui";
 import { addDays, formatDate, todayIn } from "@/lib/dates";
 import { formatCents } from "@/lib/money";
 import { requireViewer } from "@/server/auth/session";
@@ -55,6 +55,9 @@ export default async function BillingPage({
       />
 
       <Card title="New charge">
+        {teams.length === 0 ? (
+          <NeedsTeam action="bill it" />
+        ) : (
         <ActionForm action={createChargeAction} className="p-5">
           <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-6">
             <Field label="Team">
@@ -98,6 +101,7 @@ export default async function BillingPage({
             <SubmitButton>Bill the team</SubmitButton>
           </div>
         </ActionForm>
+        )}
       </Card>
 
       <div className="mb-3 mt-6 flex flex-wrap items-center gap-2">

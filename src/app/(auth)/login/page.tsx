@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { redirect } from "next/navigation";
 import { ActionForm, SubmitButton } from "@/components/action-form";
 import { Field, input } from "@/components/ui";
@@ -39,6 +40,13 @@ export default async function LoginPage() {
           <SubmitButton>Sign in</SubmitButton>
         </ActionForm>
       </div>
+
+      <p className="mt-4 text-sm text-muted">
+        Running a club?{" "}
+        <Link href="/signup" className="font-medium text-brand hover:underline">
+          Create your club
+        </Link>
+      </p>
 
       {DEMO_ENABLED && (
         <div className="mt-6">

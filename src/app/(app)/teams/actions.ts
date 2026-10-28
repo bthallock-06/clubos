@@ -4,7 +4,7 @@ import { revalidatePath } from "next/cache";
 import { z } from "zod";
 import { formValues, runAction, type ActionState } from "@/server/action";
 import { requireViewer } from "@/server/auth/session";
-import { addAthlete } from "@/server/domain/club";
+import { addAthlete, createTeam } from "@/server/domain/club";
 
 const optionalInt = z
   .string()
@@ -27,5 +27,20 @@ export async function addAthleteAction(_: ActionState, form: FormData): Promise<
     await addAthlete(ctx, input);
     revalidatePath(`/teams/${input.teamId}`);
     return `${input.firstName} ${input.lastName} added to the roster.`;
+  });
+}
+
+const Team = z.object({
+  name: z.string().min(1, "team name is required").max(80),
+  season: z.string().min(1, "season is required").max(40),
+});
+
+export async function createTeamAction(_: ActionState, form: FormData): Promise<ActionState> {
+  return runAction(async () => {
+    const { ctx } = await requireViewer("director");
+    const input = Team.parse(formValues(form));
+    await createTeam(ctx, input);
+    revalidatePath("/teams");
+    return `${input.name} created. Open it to add athletes.`;
   });
 }
